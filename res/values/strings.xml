@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">从系统获取的应用程序如下：</string>
+    <string name="installed_title">系统安装的应用程序如下：</string>
+    <string name="app_name">啸耀游戏档案备份工具</string>
+    <string name="backup">备份</string>
+    <string name="recover">恢复</string>
+</resources>
