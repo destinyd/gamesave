@@ -19,7 +19,7 @@ import com.stericson.RootTools.RootToolsException;
 public class FilesControl {
 
 	public static int copy(String fromFile, String toFile) {
-		RootTools.isRootAvailable();
+		// RootTools.isRootAvailable();
 
 		// chmod for system
 		RootTools.log("FileControl", " copy " + fromFile + " to " + toFile);
@@ -97,8 +97,11 @@ public class FilesControl {
 		return root.listFiles();
 	}
 
+	private static String str_exec = "exec ";
+
 	public static boolean exec(String command) {
 		try {
+			RootTools.log(str_exec + command);
 			RootTools.sendShell(command, 0);
 			return true;
 		} catch (IOException e) {
@@ -168,6 +171,18 @@ public class FilesControl {
 
 				in.close();
 				out.close();
+			}
+		}
+	}
+
+	public static final void chmod_rw(String path) {
+		exec("chmod 777 " + path);
+		File file_path = new File(path);
+		exec("chmod 777 " + file_path.getAbsolutePath() + "/*");
+		File[] files = file_path.listFiles();
+		for (int i = 0, n = files.length; i < n; i++) {
+			if (files[i].isDirectory()) {
+				chmod_rw(files[i].getAbsolutePath());
 			}
 		}
 	}

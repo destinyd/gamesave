@@ -1,10 +1,9 @@
-package dd.android.gamesave;
+package dd.android.GameSaveManager;
 
 import java.util.List;
 
-import com.android.test.R;
-
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,32 +11,34 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ApplicationAdapter extends BaseAdapter {
+public class AppAdapter extends BaseAdapter {
     
-    private List<ApplicationInfo> apps;
+    private List<PackageInfo> mApps;
     private LayoutInflater inflater;
+    private Context mContext;
     
-    public ApplicationAdapter (Context context, List<ApplicationInfo> infos) {
-        this.apps = infos;
+    public AppAdapter (Context context, List<PackageInfo> infos) {
+        this.mContext = context;
+        this.mApps = infos;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
     
-    @Override
+//    @Override
     public int getCount () {
-        return apps.size();
+        return mApps.size();
     }
     
-    @Override
+//    @Override
     public Object getItem (int position) {
         return position;
     }
     
-    @Override
+//    @Override
     public long getItemId (int position) {
         return position;
     }
     
-    @Override
+//    @Override
     public View getView (int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null) {
@@ -49,8 +50,8 @@ public class ApplicationAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.icon.setImageDrawable(apps.get(position).getIcon());
-        holder.name.setText(apps.get(position).getName());
+        holder.icon.setImageDrawable(mApps.get(position).applicationInfo.loadIcon(mContext.getPackageManager()));
+        holder.name.setText(mApps.get(position).applicationInfo.loadLabel(mContext.getPackageManager()));
         return convertView;
     }
     
